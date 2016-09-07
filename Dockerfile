@@ -31,7 +31,7 @@ RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 # Install everything (except JupyterHub itself) with Python 2 and 3. 
 #  (Jupyter is included in Anaconda.)
 RUN \
-  && conda create -n py3 python=3 anaconda \
+  conda create -n py3 python=3 anaconda \
   && conda create -n py2 python=2 anaconda \
   # register py2 kernel
   && source activate py2 \
