@@ -39,8 +39,8 @@ RUN \
   # same for py3, and install juptyerhub in the py3 env
   && source activate py3 \
   && ipython kernel install \
-  && pip install jupyterhub \
-  && pip install jupyterhub-dummyauthenticator
+  && pip install -y jupyterhub \
+  && pip install -y jupyterhub-dummyauthenticator
 
 WORKDIR /root
 
