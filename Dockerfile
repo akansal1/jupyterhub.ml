@@ -31,16 +31,18 @@ RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 # Install everything (except JupyterHub itself) with Python 2 and 3. 
 #  (Jupyter is included in Anaconda.)
 RUN \
-  conda create -n py3 python=3 anaconda \
-  && conda create -n py2 python=2 anaconda \
+  conda create --yes -n py3 python=3 anaconda \
+  && conda create --yes -n py2 python=2 anaconda \
   # register py2 kernel
   && source activate py2 \
   && ipython kernel install \
   # same for py3, and install juptyerhub in the py3 env
   && source activate py3 \
-  && ipython kernel install \
-  && pip install -y jupyterhub \
-  && pip install -y jupyterhub-dummyauthenticator
+  && ipython kernel install 
+
+RUN \
+  pip install jupyterhub \
+  && pip install jupyterhub-dummyauthenticator
 
 WORKDIR /root
 
