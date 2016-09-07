@@ -40,7 +40,8 @@ RUN \
   apt-get install -y python3-pip \
   && pip3 install -y jupyterhub \
   && pip3 install --upgrade notebook \
-  && ipython3 kernel install
+  && ipython3 kernel install \
+  && pip3 install jupyterhub-dummyauthenticator
 
 #LABEL org.jupyter.service="jupyterhub"
 WORKDIR /root
@@ -49,4 +50,4 @@ COPY jupyterhub_config.py /root
 
 EXPOSE 8764
 
-CMD ["jupyterhub"]
+CMD ["jupyterhub", "--config=jupyterhub_config.py"]
