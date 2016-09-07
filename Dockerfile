@@ -7,14 +7,15 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -y update && \
     apt-get -y upgrade && \
-    apt-get -y install npm nodejs nodejs-legacy wget locales git &&\
-    /usr/sbin/update-locale LANG=C.UTF-8 && \
-    locale-gen C.UTF-8 && \
-    apt-get remove -y locales && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get -y install npm nodejs nodejs-legacy wget locales git 
+    
+#   &&\ /usr/sbin/update-locale LANG=C.UTF-8 && \
+#    locale-gen C.UTF-8 && \
+#    apt-get remove -y locales && \
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists/*
 
-ENV LANG C.UTF-8
+# ENV LANG C.UTF-8
 
 # install Python with conda
 RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh -O /tmp/miniconda.sh  && \
