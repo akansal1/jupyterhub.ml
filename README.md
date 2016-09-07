@@ -35,9 +35,8 @@ root         1     0  0 16:29 ?        00:00:00 /usr/bin/python3 /usr/local/bin/
 ```
 
 ## (Optional) Build new Docker Image
+* From the directory that contains the jupyterhub.ml `Dockerfile`, run the following command:
 ```
-cd fluxcapacitor/jupyterhub.ml
-
 sudo docker build -t fluxcapacitor/jupyterhub.ml .
 ```
 
