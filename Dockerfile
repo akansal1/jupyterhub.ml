@@ -22,12 +22,25 @@ ENV PATH=/opt/conda/bin:$PATH
 # install js dependencies
 RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 
+#RUN \
+#  apt-get install -y python3-pip \
+#  && pip3 install jupyterhub \
+#  && pip3 install --upgrade notebook \
+#  && ipython3 kernel install \
+
+# Install everything (except JupyterHub itself) with Python 2 and 3. 
+#  (Jupyter is included in Anaconda.)
 RUN \
-  apt-get install -y python3-pip \
-  && pip3 install jupyterhub \
-  && pip3 install --upgrade notebook \
-  && ipython3 kernel install \
-  && pip3 install jupyterhub-dummyauthenticator
+  && conda create -n py3 python=3 anaconda \
+  && conda create -n py2 python=2 anaconda \
+  # register py2 kernel
+  && source activate py2 \
+  && ipython kernel install \
+  # same for py3, and install juptyerhub in the py3 env
+  && source activate py3 \
+  && ipython kernel install \
+  && pip install jupyterhub \
+  && pip install jupyterhub-dummyauthenticator
 
 WORKDIR /root
 
