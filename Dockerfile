@@ -8,14 +8,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update && \
     apt-get -y upgrade && \
     apt-get -y install npm nodejs nodejs-legacy wget locales git 
-    
-#   &&\ /usr/sbin/update-locale LANG=C.UTF-8 && \
-#    locale-gen C.UTF-8 && \
-#    apt-get remove -y locales && \
-#    apt-get clean && \
-#    rm -rf /var/lib/apt/lists/*
-
-# ENV LANG C.UTF-8
 
 # install Python with conda
 RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh -O /tmp/miniconda.sh  && \
@@ -30,20 +22,13 @@ ENV PATH=/opt/conda/bin:$PATH
 # install js dependencies
 RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 
-#RUN python setup.py js && pip install . && \
-#    rm -rf $PWD ~/.cache ~/.npm
-
-#RUN mkdir -p /jupyterhub/
-
-#WORKDIR /jupyterhub/
 RUN \
   apt-get install -y python3-pip \
-  && pip3 install -y jupyterhub \
+  && pip3 install jupyterhub \
   && pip3 install --upgrade notebook \
   && ipython3 kernel install \
   && pip3 install jupyterhub-dummyauthenticator
 
-#LABEL org.jupyter.service="jupyterhub"
 WORKDIR /root
 
 COPY jupyterhub_config.py /root
