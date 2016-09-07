@@ -30,17 +30,17 @@ ENV PATH=/opt/conda/bin:$PATH
 # install js dependencies
 RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 
-RUN python setup.py js && pip install . && \
-    rm -rf $PWD ~/.cache ~/.npm
+#RUN python setup.py js && pip install . && \
+#    rm -rf $PWD ~/.cache ~/.npm
 
 #RUN mkdir -p /jupyterhub/
 
 #WORKDIR /jupyterhub/
-RUN \
-  apt-get install -y python3-pip \
-  && pip3 install jupyterhub \
-  && pip3 install --upgrade notebook \
-  && ipython3 kernel install
+#RUN \
+#  apt-get install -y python3-pip \
+#  && pip3 install jupyterhub \
+#  && pip3 install --upgrade notebook \
+#  && ipython3 kernel install
 
 #LABEL org.jupyter.service="jupyterhub"
 WORKDIR /root
