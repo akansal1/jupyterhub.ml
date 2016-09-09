@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -y update && \
     apt-get -y upgrade && \
-    apt-get -y install npm nodejs nodejs-legacy wget locales git 
+    apt-get -y install npm nodejs nodejs-legacy wget locales git
 
 # install Python with conda
 RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh -O /tmp/miniconda.sh  && \
@@ -22,23 +22,11 @@ ENV PATH=/opt/conda/bin:$PATH
 # install js dependencies
 RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 
-#RUN \
-#  apt-get install -y python3-pip \
-#  && pip3 install jupyterhub \
-#  && pip3 install --upgrade notebook \
-#  && ipython3 kernel install \
-
-# Install everything (except JupyterHub itself) with Python 2 and 3. 
+# Install everything (except JupyterHub itself) with Python 2 and 3.
 #  (Jupyter is included in Anaconda.)
 RUN \
   conda create --yes -n py3 python=3 anaconda \
-  && conda create --yes -n py2 python=2 anaconda \
-  # register py2 kernel
-  && source activate py2 \
-  && ipython kernel install \
-  # same for py3, and install juptyerhub in the py3 env
-  && source activate py3 \
-  && ipython kernel install 
+  && conda create --yes -n py2 python=2 anaconda
 
 RUN \
   pip install jupyterhub \
@@ -46,8 +34,9 @@ RUN \
 
 WORKDIR /root
 
+COPY start.sh /root
 COPY jupyterhub_config.py /root
 
 EXPOSE 8764
 
-CMD ["jupyterhub", "--config=jupyterhub_config.py"]
+CMD ["./start.sh"]
