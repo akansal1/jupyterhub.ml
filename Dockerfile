@@ -22,8 +22,7 @@ ENV PATH=/opt/conda/bin:$PATH
 # install js dependencies
 RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 
-# Install everything (except JupyterHub itself) with Python 2 and 3.
-#  (Jupyter is included in Anaconda.)
+# Setup py3 and py2 environments for jupyterhub
 RUN \
   conda create --yes -n py3 python=3 anaconda \
   && conda create --yes -n py2 python=2 anaconda
@@ -37,6 +36,10 @@ RUN \
 RUN \
   pip install jupyterhub \
   && pip install jupyterhub-dummyauthenticator
+
+# Add guest account
+RUN \
+  adduser guest --gecos GECOS --disabled-password
 
 WORKDIR /root
 
