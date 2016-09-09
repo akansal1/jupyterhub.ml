@@ -29,6 +29,12 @@ RUN \
   && conda create --yes -n py2 python=2 anaconda
 
 RUN \
+  conda install --yes notebook
+
+#RUN \
+#  source activate py3 && conda install --yes -c conda-forge tensorflow
+
+RUN \
   pip install jupyterhub \
   && pip install jupyterhub-dummyauthenticator
 
