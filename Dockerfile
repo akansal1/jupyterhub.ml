@@ -1,6 +1,5 @@
 # Based on the following:  https://github.com/jupyterhub/jupyterhub/blob/master/Dockerfile
-
-FROM ubuntu:14.04
+FROM fluxcapacitor/package-ubuntu-14.04
 
 # install nodejs, utf8 locale
 ENV DEBIAN_FRONTEND noninteractive
@@ -48,4 +47,4 @@ COPY jupyterhub_config.py /root
 
 EXPOSE 8764
 
-CMD ["./start.sh"]
+CMD ["supervise", "."]
