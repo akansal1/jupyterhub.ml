@@ -2,13 +2,18 @@
 source activate py2
 ipython kernel install
 #conda install --yes -c conda-forge tensorflow
+export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
+export PATH=$SPARK_HOME/bin:$PATH
+pip2 install py4j
 
 source activate py3
 ipython kernel install
 #conda install --yes -c conda-forge tensorflow
 
 export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
-export PATH=$SPARK_HOME/bin:$PATH`
+export PATH=$SPARK_HOME/bin:$PATH
+
+pip install py4j 
 
 # Starts on Port 8764
 jupyterhub --config=jupyterhub_config.py

@@ -199,7 +199,17 @@ c.JupyterHub.port = 8764
 # The class to use for spawning single-user servers.
 #
 # Should be a subclass of Spawner.
-# c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+#c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
+
+# Spawn user containers from this image
+c.DockerSpawner.container_image = 'jupyter/pyspark-notebook'
+
+# Have the Spawner override the Docker run command
+c.DockerSpawner.extra_create_kwargs.update({
+    'command': '/usr/local/bin/start-singleuser.sh'
+})
+
 
 # Path to SSL certificate file for the public facing interface of the proxy
 #

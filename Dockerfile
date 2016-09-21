@@ -35,8 +35,15 @@ RUN \
 RUN \
   conda install --yes notebook
 
+#################################################
+# TODO:  integrate the following:
+#   https://github.com/jupyter/docker-stacks/
+# and spawn docker conatiners
+#################################################
+
 RUN \
-  pip install py4j
+  pip install py4j \
+  && pip2 install py4j
 
 RUN conda install --yes -c conda-forge tensorflow
 RUN conda install --yes -c conda-forge matplotlib
@@ -113,6 +120,9 @@ WORKDIR /root
 
 COPY run .
 COPY jupyterhub_config.py .
+
+ENV PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
+ENV PATH=$SPARK_HOME/bin:$PATH
 
 EXPOSE 8764
 
