@@ -8,6 +8,12 @@ RUN apt-get -y update && \
     apt-get -y upgrade && \
     apt-get -y install npm nodejs nodejs-legacy wget locales git
 
+# libav-tools for matplotlib anim
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libav-tools && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # install Python with conda
 RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh -O /tmp/miniconda.sh  && \
     echo 'a7bcd0425d8b6688753946b59681572f63c2241aed77bf0ec6de4c5edc5ceeac */tmp/miniconda.sh' | shasum -a 256 -c - && \
@@ -29,6 +35,69 @@ RUN \
 RUN \
   conda install --yes notebook
 
+RUN \
+  pip install py4j
+
+RUN conda install --yes -c conda-forge tensorflow
+RUN conda install --yes -c conda-forge matplotlib
+RUN conda install --yes -c conda-forge pandas
+RUN conda install --yes -c anaconda scikit-learn
+
+RUN conda install --yes -n py2 -c conda-forge tensorflow
+RUN conda install --yes -n py2 -c conda-forge matplotlib
+RUN conda install --yes -n py2 -c conda-forge pandas
+RUN conda install --yes -n py2 -c anaconda scikit-learn
+
+#RUN \
+#  conda install --yes \
+#    'tensorflow' 
+#    'ipywidgets=5.1*' \
+#    'pandas=0.18*' \
+#    'numexpr=2.5*' \
+#    'matplotlib=1.5*' \
+#    'scipy=0.17*' \
+#    'seaborn=0.7*' \
+#    'scikit-learn=0.17*' \
+#    'scikit-image=0.11*' \
+#    'sympy=1.0*' \
+#    'cython=0.23*' \
+#    'patsy=0.4*' \
+#    'statsmodels=0.6*' \
+#    'cloudpickle=0.1*' \
+#    'dill=0.2*' \
+#    'numba=0.23*' \
+#    'bokeh=0.11*' \
+#    'sqlalchemy=1.0*' \
+#    'hdf5=1.8.17' \
+#    'h5py=2.6*' \
+#  && conda remove --quiet --yes --force qt pyqt \
+#  && conda clean -tipsy
+
+#RUN \ 
+#  conda install --yes -n py3 \
+#    'tensorflow' 
+#    'ipywidgets=5.1*' \
+#    'pandas=0.18*' \
+#    'numexpr=2.5*' \
+#    'matplotlib=1.5*' \
+#    'scipy=0.17*' \
+#    'seaborn=0.7*' \
+#    'scikit-learn=0.17*' \
+#    'scikit-image=0.11*' \
+#    'sympy=1.0*' \
+#    'cython=0.23*' \
+#    'patsy=0.4*' \
+#    'statsmodels=0.6*' \
+#    'cloudpickle=0.1*' \
+#    'dill=0.2*' \
+#    'numba=0.23*' \
+#    'bokeh=0.11*' \
+#    'sqlalchemy=1.0*' \
+#    'hdf5=1.8.17' \
+#    'h5py=2.6*' \
+#  && conda remove --quiet --yes --force qt pyqt \ 
+#  && conda clean -tipsy
+
 #RUN \
 #  source activate py3 && conda install --yes -c conda-forge tensorflow
 
@@ -42,8 +111,8 @@ RUN \
 
 WORKDIR /root
 
-COPY start.sh /root
-COPY jupyterhub_config.py /root
+COPY run .
+COPY jupyterhub_config.py .
 
 EXPOSE 8764
 
