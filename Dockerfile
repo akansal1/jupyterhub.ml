@@ -1,8 +1,4 @@
 # Based on the following:  https://github.com/jupyterhub/jupyterhub/blob/master/Dockerfile
-
-#FROM ubuntu:14.04
-
-#FROM fluxcapacitor/package-anaconda-4.0.5
 FROM fluxcapacitor/package-spark-2.0.1
 
 # install nodejs, utf8 locale

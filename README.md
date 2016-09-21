@@ -3,7 +3,7 @@
 
 ## Start Docker Container
 ```
-sudo docker run -itd --name=jupyterhub --net=host fluxcapacitor/jupyterhub.ml
+sudo docker run -itd --name=jupyterhub --net=host fluxcapacitor/jupyterhub
 ```
 
 ## Verify Successful Start through Logs
@@ -37,7 +37,7 @@ root         1     0  0 16:29 ?        00:00:00 /usr/bin/python3 /usr/local/bin/
 ## (Optional) Build new Docker Image
 * From the directory that contains the jupyterhub.ml `Dockerfile`, run the following command:
 ```
-sudo docker build -t fluxcapacitor/jupyterhub.ml .
+sudo docker build -t fluxcapacitor/jupyterhub .
 ```
 
 
