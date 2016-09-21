@@ -32,14 +32,16 @@ RUN \
   conda create --yes -n py3 python=3 anaconda \
   && conda create --yes -n py2 python=2 anaconda
 
-RUN \
-  conda install --yes notebook
-
 #################################################
 # TODO:  integrate the following:
 #   https://github.com/jupyter/docker-stacks/
 # and spawn docker conatiners
 #################################################
+
+################################################################################################
+# TOTO:  Figure out the issue with ipython notebook + tf + spark
+#   https://arnesund.com/2015/09/21/spark-cluster-on-openstack-with-multi-user-jupyter-notebook/
+################################################################################################
 
 RUN \
   pip install py4j \
@@ -107,6 +109,10 @@ RUN conda install --yes -n py2 -c anaconda scikit-learn
 
 #RUN \
 #  source activate py3 && conda install --yes -c conda-forge tensorflow
+
+RUN \
+  conda install --yes -n py3 notebook \
+  && conda install --yes -n py2 notebook
 
 RUN \
   pip install jupyterhub \

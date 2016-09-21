@@ -15,5 +15,26 @@ export PATH=$SPARK_HOME/bin:$PATH
 
 pip install py4j 
 
+sudo mkdir -p /usr/local/share/jupyter/kernels/pyspark/
+cat <<EOF | sudo tee /usr/local/share/jupyter/kernels/pyspark/kernel.json
+{
+  "display_name": "PySpark",
+  "language": "python",
+  "argv": [
+   "/usr/bin/python3",
+   "-m",
+   "ipykernel",
+   "-f",
+   "{connection_file}"
+  ],
+  "env": {
+   "SPARK_HOME": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor",
+   "PYTHONPATH": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor/python/lib/py4j-0.10.3-src.zip",
+   "PYTHONSTARTUP": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor/python/pyspark/shell.py",
+   "PYSPARK_SUBMIT_ARGS": "--master spark://104.198.146.17:7077 pyspark-shell"
+  }
+}
+EOF
+
 # Starts on Port 8764
 jupyterhub --config=jupyterhub_config.py
