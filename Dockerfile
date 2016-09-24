@@ -122,6 +122,10 @@ RUN \
 RUN \
   adduser guest --gecos GECOS --disabled-password
 
+RUN \ 
+  pip install findspark \
+  && pip2 install findspark
+
 WORKDIR /root
 
 COPY run .
