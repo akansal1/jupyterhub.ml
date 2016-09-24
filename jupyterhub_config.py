@@ -148,7 +148,7 @@ c.JupyterHub.confirm_no_ssl = True
 # c.JupyterHub.generate_config = False
 
 # The ip for this process
-# c.JupyterHub.hub_ip = '127.0.0.1'
+c.JupyterHub.hub_ip = '0.0.0.0'
 
 # The port for this process
 # c.JupyterHub.hub_port = 3081
@@ -175,7 +175,7 @@ c.JupyterHub.confirm_no_ssl = True
 c.JupyterHub.port = 8764
 
 # The ip for the proxy API handlers
-# c.JupyterHub.proxy_api_ip = '127.0.0.1'
+# c.JupyterHub.proxy_api_ip = '0.0.0.0'
 
 # The port for the proxy API handlers
 # c.JupyterHub.proxy_api_port = 0
@@ -203,12 +203,12 @@ c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
 #c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
 
 # Spawn user containers from this image
-c.DockerSpawner.container_image = 'jupyter/pyspark-notebook'
+#c.DockerSpawner.container_image = 'jupyter/pyspark-notebook'
 
 # Have the Spawner override the Docker run command
-c.DockerSpawner.extra_create_kwargs.update({
-    'command': '/usr/local/bin/start-singleuser.sh'
-})
+#c.DockerSpawner.extra_create_kwargs.update({
+#    'command': '/usr/local/bin/start-singleuser.sh'
+#})
 
 
 # Path to SSL certificate file for the public facing interface of the proxy

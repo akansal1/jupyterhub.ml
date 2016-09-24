@@ -29,8 +29,8 @@ RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 
 # Setup py3 and py2 environments for jupyterhub
 RUN \
-  conda create --yes -n py3 python=3 anaconda \
-  && conda create --yes -n py2 python=2 anaconda
+  conda create --yes -n py3 python=3.5 anaconda \
+  && conda create --yes -n py2 python=2.7 anaconda
 
 #################################################
 # TODO:  integrate the following:
@@ -43,94 +43,44 @@ RUN \
 #   https://arnesund.com/2015/09/21/spark-cluster-on-openstack-with-multi-user-jupyter-notebook/
 ################################################################################################
 
-RUN \
-  pip install py4j \
-  && pip2 install py4j
-
-RUN conda install --yes -c conda-forge tensorflow
-RUN conda install --yes -c conda-forge matplotlib
-RUN conda install --yes -c conda-forge pandas
-RUN conda install --yes -c anaconda scikit-learn
+RUN conda install --yes -n py3 -c conda-forge tensorflow
+RUN conda install --yes -n py3 -c conda-forge matplotlib
+RUN conda install --yes -n py3 -c conda-forge pandas
+RUN conda install --yes -n py3 -c anaconda scikit-learn
+RUN conda install --yes -n py3 -c conda-forge py4j
 
 RUN conda install --yes -n py2 -c conda-forge tensorflow
 RUN conda install --yes -n py2 -c conda-forge matplotlib
 RUN conda install --yes -n py2 -c conda-forge pandas
 RUN conda install --yes -n py2 -c anaconda scikit-learn
-
-#RUN \
-#  conda install --yes \
-#    'tensorflow' 
-#    'ipywidgets=5.1*' \
-#    'pandas=0.18*' \
-#    'numexpr=2.5*' \
-#    'matplotlib=1.5*' \
-#    'scipy=0.17*' \
-#    'seaborn=0.7*' \
-#    'scikit-learn=0.17*' \
-#    'scikit-image=0.11*' \
-#    'sympy=1.0*' \
-#    'cython=0.23*' \
-#    'patsy=0.4*' \
-#    'statsmodels=0.6*' \
-#    'cloudpickle=0.1*' \
-#    'dill=0.2*' \
-#    'numba=0.23*' \
-#    'bokeh=0.11*' \
-#    'sqlalchemy=1.0*' \
-#    'hdf5=1.8.17' \
-#    'h5py=2.6*' \
-#  && conda remove --quiet --yes --force qt pyqt \
-#  && conda clean -tipsy
-
-#RUN \ 
-#  conda install --yes -n py3 \
-#    'tensorflow' 
-#    'ipywidgets=5.1*' \
-#    'pandas=0.18*' \
-#    'numexpr=2.5*' \
-#    'matplotlib=1.5*' \
-#    'scipy=0.17*' \
-#    'seaborn=0.7*' \
-#    'scikit-learn=0.17*' \
-#    'scikit-image=0.11*' \
-#    'sympy=1.0*' \
-#    'cython=0.23*' \
-#    'patsy=0.4*' \
-#    'statsmodels=0.6*' \
-#    'cloudpickle=0.1*' \
-#    'dill=0.2*' \
-#    'numba=0.23*' \
-#    'bokeh=0.11*' \
-#    'sqlalchemy=1.0*' \
-#    'hdf5=1.8.17' \
-#    'h5py=2.6*' \
-#  && conda remove --quiet --yes --force qt pyqt \ 
-#  && conda clean -tipsy
+RUN conda install --yes -n py2 -c conda-forge py4j
 
 #RUN \
 #  source activate py3 && conda install --yes -c conda-forge tensorflow
 
 RUN \
-  conda install --yes -n py3 notebook \
-  && conda install --yes -n py2 notebook
+  conda install --yes -n py3 ipython jupyter \
+  && conda install --yes -n py2 ipython jupyter 
 
 RUN \
-  pip install jupyterhub \
-  && pip install jupyterhub-dummyauthenticator
+  conda install -c conda-forge -n py3 jupyterhub=0.6.1 \
+  && conda install -c conda-forge -n py3 ipykernel=4.5.0 \
+  && conda install -c conda-forge -n py2 ipykernel=4.5.0 \
+  && conda install -c conda-forge -n py3 notebook=4.2.3 \
+  && conda install -c conda-forge -n py2 notebook=4.2.3 \ 
+  && conda install -c conda-forge -n py3 findspark=1.0.0 \
+  && conda install -c conda-forge -n py2 findspark=1.0.0
 
 # Add guest account
 RUN \
   adduser guest --gecos GECOS --disabled-password
-
-RUN \ 
-  pip install findspark \
-  && pip2 install findspark
 
 WORKDIR /root
 
 COPY run .
 COPY jupyterhub_config.py .
 
+ENV SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
 ENV PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
 ENV PATH=$SPARK_HOME/bin:$PATH
 

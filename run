@@ -1,40 +1,52 @@
 #!/bin/bash
 source activate py2
-ipython kernel install
+#ipython kernel install
 #conda install --yes -c conda-forge tensorflow
+export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
 export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
 export PATH=$SPARK_HOME/bin:$PATH
-pip2 install py4j
+#pip2 install py4j
+RUN \
+# pip install jupyterhub \
+  pip2 install jupyterhub-dummyauthenticator findspark
 
 source activate py3
-ipython kernel install
-#conda install --yes -c conda-forge tensorflow
+#ipython kernel install
+#pip install py4j
 
+#conda install --yes -c conda-forge tensorflow
+export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
 export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
 export PATH=$SPARK_HOME/bin:$PATH
 
-pip install py4j 
+RUN \
+# pip install jupyterhub \
+  pip install jupyterhub-dummyauthenticator findspark 
+#pip install py4j 
 
-sudo mkdir -p /usr/local/share/jupyter/kernels/pyspark/
-cat <<EOF | sudo tee /usr/local/share/jupyter/kernels/pyspark/kernel.json
-{
-  "display_name": "PySpark",
-  "language": "python",
-  "argv": [
-   "/usr/bin/python3",
-   "-m",
-   "ipykernel",
-   "-f",
-   "{connection_file}"
-  ],
-  "env": {
-   "SPARK_HOME": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor",
-   "PYTHONPATH": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor/python/lib/py4j-0.10.3-src.zip",
-   "PYTHONSTARTUP": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor/python/pyspark/shell.py",
-   "PYSPARK_SUBMIT_ARGS": "--master spark://104.198.146.17:7077 pyspark-shell"
-  }
-}
-EOF
+#sudo mkdir -p /usr/local/share/jupyter/kernels/pyspark/
+#cat <<EOF | sudo tee /usr/local/share/jupyter/kernels/pyspark/kernel.json
+#{
+#  "display_name": "PySpark",
+#  "language": "python",
+#  "argv": [
+#   "/usr/bin/python3",
+#   "-m",
+#   "ipykernel",
+#   "-f",
+#   "{connection_file}"
+#  ],
+#  "env": {
+#   "SPARK_HOME": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor",
+#   "PYTHONPATH": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor/python/lib/py4j-0.10.3-src.zip",
+#   "PYTHONSTARTUP": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor/python/pyspark/shell.py",
+#   "PYSPARK_SUBMIT_ARGS": "--master spark://104.198.146.17:7077 pyspark-shell"
+#  }
+#}
+#EOF
+
+#conda install --yes -n py3 ipython jupyter findspark \
+#&& conda install --yes -n py2 ipython jupyter findspark
 
 # Starts on Port 8764
 jupyterhub --config=jupyterhub_config.py
