@@ -77,8 +77,8 @@ RUN \
 
 WORKDIR /root
 
-COPY run .
-COPY jupyterhub_config.py .
+COPY run run
+COPY jupyterhub_config.py jupyterhub_config.py
 COPY notebooks/ notebooks/ 
 COPY lib/ lib/
 
@@ -89,11 +89,8 @@ COPY lib/ lib/
 #  wget https://github.com/fluxcapacitor/pipeline/blob/master/myapps/pmml/spark/2.0.1/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar
 
 ENV SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
-#ENV PYTHONPATH=/root/tensorframes-assembly-0.2.4.jar:/root/jpmml-sparkml-package-1.0-SNAPSHOT.jar:$SPARK_HOME/python/:$PYTHONPATH
-ENV PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
-#ENV PYSPARK_SUBMIT_ARGS="--jars /root/tensorframes-assembly-0.2.4.jar,/root/jpmml-sparkml-package-1.0-SNAPSHOT.jar"
+ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.3-src.zip:$PYTHONPATH
 ENV PATH=$SPARK_HOME/bin:$PATH
-#ENV PYSPARK_PYTHON="/opt/conda/bin/python spark-submit --jars /root/tensorframes-assembly-0.2.4.jar"
 EXPOSE 8764
 
 CMD ["supervise", "."]
