@@ -284,7 +284,7 @@ c.Spawner.default_url = ''
 # c.Spawner.disable_user_config = False
 
 # Whitelist of environment variables for the subprocess to inherit
-# c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL']
+c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'SPARK_HOME', 'PYSPARK_PYTHON', 'SPARK_MASTER', 'PYSPARK_SUBMIT_ARGS']
 
 # Environment variables to load for the Spawner.
 #
@@ -307,7 +307,7 @@ c.Spawner.default_url = ''
 #
 # `~` will be expanded to the user's home directory `%U` will be expanded to the
 # user's username
-c.Spawner.notebook_dir = '/'
+c.Spawner.notebook_dir = '~/notebooks'
 
 # An HTML form for options a user can specify on launching their server. The
 # surrounding `<form>` element and the submit button are already provided.
