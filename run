@@ -1,28 +1,27 @@
 #!/bin/bash
+
 source activate py2
-#ipython kernel install
-#conda install --yes -c conda-forge tensorflow
-export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
-export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
-export PATH=$SPARK_HOME/bin:$PATH
-#pip2 install py4j
-RUN \
-# pip install jupyterhub \
-  pip2 install jupyterhub-dummyauthenticator findspark
+#export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
+#export PYTHONPATH=/root/tensorframes-assembly-0.2.4.jar:/root/jpmml-sparkml-package-1.0-SNAPSHOT.jar:$SPARK_HOME/python/:$PYTHONPATH
+#export PYSPARK_SUBMIT_ARGS="--jars /root/tensorframes-assembly-0.2.4.jar,jpmml-sparkml-package-1.0-SNAPSHOT.jar"
+#export PATH=$SPARK_HOME/bin:$PATH
+#export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
+#export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH:~/tensorframes-assembly-0.2.4.jar
+#export PATH=$SPARK_HOME/bin:$PATH
+pip2 install jupyterhub-dummyauthenticator
 
 source activate py3
-#ipython kernel install
-#pip install py4j
+#export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
+#export PYTHONPATH=/root/tensorframes-assembly-0.2.4.jar:/root/jpmml-sparkml-package-1.0-SNAPSHOT.jar:$SPARK_HOME/python/:$PYTHONPATH
+#export PYSPARK_SUBMIT_ARGS="--jars /root/tensorframes-assembly-0.2.4.jar,jpmml-sparkml-package-1.0-SNAPSHOT.jar"
+#export PATH=$SPARK_HOME/bin:$PATH
+#export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
+#export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH:~/tensorframes-assembly-0.2.4.jar
+#export PATH=$SPARK_HOME/bin:$PATH
+pip install jupyterhub-dummyauthenticator 
 
-#conda install --yes -c conda-forge tensorflow
-export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
-export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
-export PATH=$SPARK_HOME/bin:$PATH
-
-RUN \
-# pip install jupyterhub \
-  pip install jupyterhub-dummyauthenticator findspark 
-#pip install py4j 
+# Starts on Port 8764
+jupyterhub --config=jupyterhub_config.py
 
 #sudo mkdir -p /usr/local/share/jupyter/kernels/pyspark/
 #cat <<EOF | sudo tee /usr/local/share/jupyter/kernels/pyspark/kernel.json
@@ -44,9 +43,3 @@ RUN \
 #  }
 #}
 #EOF
-
-#conda install --yes -n py3 ipython jupyter findspark \
-#&& conda install --yes -n py2 ipython jupyter findspark
-
-# Starts on Port 8764
-jupyterhub --config=jupyterhub_config.py
