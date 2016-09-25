@@ -79,8 +79,8 @@ WORKDIR /root
 
 COPY run .
 COPY jupyterhub_config.py .
-COPY notebooks/ .
-COPY lib/ .
+COPY notebooks/ notebooks/ 
+COPY lib/ lib/
 
 #RUN \
 #  wget https://github.com/fluxcapacitor/pipeline/blob/master/myapps/spark/tensorframes/lib/tensorframes-assembly-0.2.4.jar
