@@ -77,8 +77,6 @@ RUN \
 
 RUN \
   conda install --yes -n py3 -c anaconda ipykernel 
-#  && source activate py3 \
-#  && ipython kernel install --name 'PySpark' --display-name 'PySpark'
 
 WORKDIR /root
 

@@ -1,53 +1,15 @@
 #!/bin/bash
 
 source activate py2
-#export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
-#export PYTHONPATH=/root/tensorframes-assembly-0.2.4.jar:/root/jpmml-sparkml-package-1.0-SNAPSHOT.jar:$SPARK_HOME/python/:$PYTHONPATH
-#export PYSPARK_SUBMIT_ARGS="--jars /root/tensorframes-assembly-0.2.4.jar,jpmml-sparkml-package-1.0-SNAPSHOT.jar"
-#export PATH=$SPARK_HOME/bin:$PATH
-#export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
-#export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH:~/tensorframes-assembly-0.2.4.jar
-#export PATH=$SPARK_HOME/bin:$PATH
 pip2 install jupyterhub-dummyauthenticator
 
 source activate py3
-#export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
-#export PYTHONPATH=/root/tensorframes-assembly-0.2.4.jar:/root/jpmml-sparkml-package-1.0-SNAPSHOT.jar:$SPARK_HOME/python/:$PYTHONPATH
-#export PYSPARK_SUBMIT_ARGS="--jars /root/tensorframes-assembly-0.2.4.jar,jpmml-sparkml-package-1.0-SNAPSHOT.jar"
-#export PATH=$SPARK_HOME/bin:$PATH
-#export SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
-#export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH:~/tensorframes-assembly-0.2.4.jar
-#export PATH=$SPARK_HOME/bin:$PATH
 pip install jupyterhub-dummyauthenticator 
 
 ipython kernel install --name 'pyspark-py2'
 ipython kernel install --name 'pyspark-py3'
 
 cp -R /root/kernels/ /usr/local/share/jupyter/
-#cp /root/kernels/pyspark-py3/kernel.json /usr/local/share/jupyter/kernels/pyspark-py3/kernel.json
-
-#export PYSPARK_SUBMIT_ARGS=" --master $SPARK_MASTER_HOST:$SPARK_MASTER_PORT pyspark-shell"
 
 # Starts on Port 8764
 jupyterhub --config=jupyterhub_config.py
-
-#sudo mkdir -p /usr/local/share/jupyter/kernels/pyspark/
-#cat <<EOF | sudo tee /usr/local/share/jupyter/kernels/pyspark/kernel.json
-#{
-#  "display_name": "PySpark",
-#  "language": "python",
-#  "argv": [
-#   "/usr/bin/python3",
-#   "-m",
-#   "ipykernel",
-#   "-f",
-#   "{connection_file}"
-#  ],
-#  "env": {
-#   "SPARK_HOME": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor",
-#   "PYTHONPATH": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor/python/lib/py4j-0.10.3-src.zip",
-#   "PYTHONSTARTUP": "/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor/python/pyspark/shell.py",
-#   "PYSPARK_SUBMIT_ARGS": "--master spark://104.198.146.17:7077 pyspark-shell"
-#  }
-#}
-#EOF
