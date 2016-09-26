@@ -3,7 +3,7 @@
 
 ## Start Docker Container
 ```
-sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER_HOST=local[*] -e SPARK_MASTER_PORT= fluxcapacitor/jupyterhub
+sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER_HOST="local[*]" -e SPARK_MASTER_PORT="" fluxcapacitor/jupyterhub
 ```
 
 ## Verify Successful Start through Logs
