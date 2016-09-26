@@ -10,6 +10,7 @@ ipython kernel install --name 'pyspark-py2'
 ipython kernel install --name 'pyspark-py3'
 
 cp -R /root/kernels/ /usr/local/share/jupyter/
+cp -R /root/profile_default/ ~/.ipython/
 
 # Starts on Port 8764
 jupyterhub --config=jupyterhub_config.py
