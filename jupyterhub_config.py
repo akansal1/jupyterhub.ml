@@ -284,7 +284,7 @@ c.Spawner.default_url = ''
 # c.Spawner.disable_user_config = False
 
 # Whitelist of environment variables for the subprocess to inherit
-c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'SPARK_HOME', 'PYSPARK_PYTHON', 'SPARK_MASTER', 'PYSPARK_SUBMIT_ARGS']
+c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'SPARK_HOME', 'PYSPARK_PYTHON', 'SPARK_MASTER', 'SPARK_MASTER_HOST', 'SPARK_MASTER_PORT', 'PYSPARK_SUBMIT_ARGS']
 
 # Environment variables to load for the Spawner.
 #

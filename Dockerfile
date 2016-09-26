@@ -75,22 +75,23 @@ RUN \
 RUN \
   adduser guest --gecos GECOS --disabled-password
 
+RUN \
+  conda install --yes -n py3 -c anaconda ipykernel 
+#  && source activate py3 \
+#  && ipython kernel install --name 'PySpark' --display-name 'PySpark'
+
 WORKDIR /root
 
 COPY run run
 COPY jupyterhub_config.py jupyterhub_config.py
 COPY notebooks/ notebooks/ 
 COPY lib/ lib/
-
-#RUN \
-#  wget https://github.com/fluxcapacitor/pipeline/blob/master/myapps/spark/tensorframes/lib/tensorframes-assembly-0.2.4.jar
-
-#RUN \
-#  wget https://github.com/fluxcapacitor/pipeline/blob/master/myapps/pmml/spark/2.0.1/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar
+COPY kernels/ kernels/ 
 
 ENV SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
-ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.3-src.zip:$PYTHONPATH
+ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.3-src.zip
 ENV PATH=$SPARK_HOME/bin:$PATH
+
 EXPOSE 8764
 
 CMD ["supervise", "."]

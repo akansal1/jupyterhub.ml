@@ -1,0 +1,13 @@
+{
+ "argv": [
+  "/opt/conda/envs/py3/bin/python",
+  "-m",
+  "ipykernel",
+  "-f",
+  "{connection_file}"
+ ],
+ "display_name": "PySpark [Py3]",
+ "language": "python",
+ "env": {
+ }
+}

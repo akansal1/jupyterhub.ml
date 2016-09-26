@@ -20,6 +20,14 @@ source activate py3
 #export PATH=$SPARK_HOME/bin:$PATH
 pip install jupyterhub-dummyauthenticator 
 
+ipython kernel install --name 'pyspark-py2'
+ipython kernel install --name 'pyspark-py3'
+
+cp -R /root/kernels/ /usr/local/share/jupyter/
+#cp /root/kernels/pyspark-py3/kernel.json /usr/local/share/jupyter/kernels/pyspark-py3/kernel.json
+
+#export PYSPARK_SUBMIT_ARGS=" --master $SPARK_MASTER_HOST:$SPARK_MASTER_PORT pyspark-shell"
+
 # Starts on Port 8764
 jupyterhub --config=jupyterhub_config.py
 
