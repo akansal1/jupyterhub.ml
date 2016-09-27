@@ -11,14 +11,6 @@ sys.path.insert(0, os.path.join(spark_home, 'python'))
 for lib in glob.glob(os.path.join(spark_home, 'python/lib/py4j-*-src.zip')):
     sys.path.insert(0, lib)
 
-# TODO:  Build up $PYSPARK_SUBMIT_ARGS from...
-#          --master $SPARK_HMASTER_HOST:$SPARK_MASTER_PORT
-#          --jars $SPARK_SUBMIT_JARS
-#          --repositories $SPARK_SUBMIT_REPOSITORIES
-#          --packages $SPARK_SUBMIT_PACKAGES
-#          pyspark-shell <-- DON'T FORGET THIS!!
-# PYSPARK_SUBMIT_ARGS=" --master $SPARK_MASTER_HOST:$SPARK_MASTER_PORT pyspark-shell"
-
-os.environ['PYSPARK_SUBMIT_ARGS']='%s %s %s %s pyspark-shell' % (os.getenv('SPARK_MASTER'), os.getenv('SPARK_SUBMIT_PACKAGES'), os.getenv('SPARK_SUBMIT_JARS'), os.getenv('SPARK_SUBMIT_PYFILES'))
+os.environ['PYSPARK_SUBMIT_ARGS']='%s pyspark-shell' % (os.getenv('SPARK_SUBMIT_ARGS'))
 
 execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))
