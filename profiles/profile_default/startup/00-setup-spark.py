@@ -2,11 +2,12 @@ import glob
 import os
 import sys
 
-# See ipython-notebook-spark.py for cluster mode (YARN or Standalone)
-
+# Setup SPARK_HOME
 spark_home = os.getenv('SPARK_HOME', None)
 if not spark_home:
     raise ValueError('SPARK_HOME environment variable is not set')
+
+# System sys.path
 sys.path.insert(0, os.path.join(spark_home, 'python'))
 for lib in glob.glob(os.path.join(spark_home, 'python/lib/py4j-*-src.zip')):
     sys.path.insert(0, lib)

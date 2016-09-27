@@ -32,51 +32,39 @@ RUN \
   conda create --yes -n py3 python=3.5 anaconda \
   && conda create --yes -n py2 python=2.7 anaconda
 
-#################################################
-# TODO:  integrate the following:
-#   https://github.com/jupyter/docker-stacks/
-# and spawn docker conatiners
-#################################################
-
-################################################################################################
-# TOTO:  Figure out the issue with ipython notebook + tf + spark
-#   https://arnesund.com/2015/09/21/spark-cluster-on-openstack-with-multi-user-jupyter-notebook/
-################################################################################################
-
-RUN conda install --yes -n py3 -c conda-forge tensorflow
-RUN conda install --yes -n py3 -c conda-forge matplotlib
-RUN conda install --yes -n py3 -c conda-forge pandas
-RUN conda install --yes -n py3 -c anaconda scikit-learn
-RUN conda install --yes -n py3 -c conda-forge py4j
-
-RUN conda install --yes -n py2 -c conda-forge tensorflow
-RUN conda install --yes -n py2 -c conda-forge matplotlib
-RUN conda install --yes -n py2 -c conda-forge pandas
-RUN conda install --yes -n py2 -c anaconda scikit-learn
-RUN conda install --yes -n py2 -c conda-forge py4j
-
-#RUN \
-#  source activate py3 && conda install --yes -c conda-forge tensorflow
+RUN \
+  conda install --yes -n py3 -c conda-forge tensorflow \
+  && conda install --yes -n py3 -c conda-forge matplotlib \
+  && conda install --yes -n py3 -c conda-forge pandas \
+  && conda install --yes -n py3 -c anaconda scikit-learn \
+  && conda install --yes -n py3 -c conda-forge py4j \
+  && conda install --yes -n py2 -c conda-forge tensorflow \
+  && conda install --yes -n py2 -c conda-forge matplotlib \
+  && conda install --yes -n py2 -c conda-forge pandas \
+  && conda install --yes -n py2 -c anaconda scikit-learn \
+  && conda install --yes -n py2 -c conda-forge py4j 
 
 RUN \
   conda install --yes -n py3 ipython jupyter \
   && conda install --yes -n py2 ipython jupyter 
 
 RUN \
-  conda install -c conda-forge -n py3 jupyterhub=0.6.1 \
-  && conda install -c conda-forge -n py3 ipykernel=4.5.0 \
-  && conda install -c conda-forge -n py2 ipykernel=4.5.0 \
-  && conda install -c conda-forge -n py3 notebook=4.2.3 \
-  && conda install -c conda-forge -n py2 notebook=4.2.3 \ 
-  && conda install -c conda-forge -n py3 findspark=1.0.0 \
-  && conda install -c conda-forge -n py2 findspark=1.0.0
+  conda install --yes -c conda-forge -n py3 jupyterhub=0.6.1 \
+  && conda install --yes -c conda-forge -n py3 ipykernel=4.5.0 \
+  && conda install --yes -c conda-forge -n py2 ipykernel=4.5.0 \
+  && conda install --yes -c conda-forge -n py3 notebook=4.2.3 \
+  && conda install --yes -c conda-forge -n py2 notebook=4.2.3 \ 
+  && conda install --yes -c conda-forge -n py3 findspark=1.0.0 \
+  && conda install --yes -c conda-forge -n py2 findspark=1.0.0 \
+  && conda install --yes -c anaconda -n py3 ipykernel
 
-# Add guest account
+# Add guest accounts
 RUN \
-  adduser guest --gecos GECOS --disabled-password
+  adduser guest1 --gecos GECOS --disabled-password \
+  && adduser guest2 --gecos GECOS --disabled-password 
 
-RUN \
-  conda install --yes -n py3 -c anaconda ipykernel 
+COPY notebooks/ /home/guest1/notebooks/
+COPY notebooks/ /home/guest2/notebooks/
 
 WORKDIR /root
 
