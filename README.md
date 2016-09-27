@@ -4,7 +4,10 @@
 ## Start Docker Container
 * Note:  For now, you must set the full `PYSPARK_SUBMIT_ARGS` with all elements specified here 
 ```
-sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER_HOST="local[*]" -e SPARK_MASTER_PORT="" -e PYSPARK_SUBMIT_ARGS="--master local[*] --packages databricks:tensorframes:0.2.3-s_2.10 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py pyspark-shell" fluxcapacitor/jupyterhub
+sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER_HOST="local[*]" -e SPARK_MASTER_PORT="" -e JUPYTER_PROFILE="default" fluxcapacitor/jupyterhub
+```
+```
+#-e PYSPARK_SUBMIT_ARGS="--master local[*] --packages databricks:tensorframes:0.2.3-s_2.10,com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py pyspark-shell"
 ```
 
 ## Verify Successful Start through Logs
