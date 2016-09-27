@@ -172,7 +172,7 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 # c.JupyterHub.pid_file = ''
 
 # The public facing port of the proxy
-c.JupyterHub.port = 8764
+c.JupyterHub.port = 8754
 
 # The ip for the proxy API handlers
 # c.JupyterHub.proxy_api_ip = '0.0.0.0'

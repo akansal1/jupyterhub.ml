@@ -85,12 +85,12 @@ COPY jupyterhub_config.py jupyterhub_config.py
 COPY notebooks/ notebooks/ 
 COPY lib/ lib/
 COPY kernels/ kernels/ 
-COPY profile_default/ profile_default/
+COPY profiles/ profiles/
 
 ENV SPARK_HOME=/root/spark-2.0.1-SNAPSHOT-bin-fluxcapacitor
 ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.3-src.zip
 ENV PATH=$SPARK_HOME/bin:$PATH
 
-EXPOSE 8764
+EXPOSE 8754
 
 CMD ["supervise", "."]
