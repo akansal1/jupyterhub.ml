@@ -2,7 +2,6 @@
 ## Prequisites
 
 ## Start Docker Container
-* Note:  For now, you must set the full `PYSPARK_SUBMIT_ARGS` with all elements specified here 
 ```
 sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER="local[*]" -e JUPYTER_PROFILE="default" -e SPARK_SUBMIT_PACKAGES="com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0" -e SPARK_SUBMIT_JARS="/root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar" -e SPARK_SUBMIT_PYFILES="/root/lib/jpmml.py" fluxcapacitor/jupyterhub
 ```
