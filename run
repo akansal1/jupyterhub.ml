@@ -12,8 +12,7 @@ ipython kernel install --name 'pyspark-py3'
 cp -R /root/kernels/ /usr/local/share/jupyter/
 
 # Create Profiles
-ipython profile create $JUPYTER_PROFILE
-cp -R /root/profiles/profile_$JUPYTER_PROFILE/ ~/.ipython/
+cp -R /root/profiles/ ~/.ipython/
 
 # Starts on Port 8764
 jupyterhub --config=jupyterhub_config.py
