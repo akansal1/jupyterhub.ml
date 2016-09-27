@@ -3,7 +3,7 @@
 
 ## Start Docker Container
 ```
-sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER="local[*]" -e JUPYTER_PROFILE="default" -e SPARK_SUBMIT_PACKAGES="com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0" -e SPARK_SUBMIT_JARS="/root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar" -e SPARK_SUBMIT_PYFILES="/root/lib/jpmml.py" fluxcapacitor/jupyterhub
+sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER="--master local[*]" -e JUPYTER_PROFILE="default" -e SPARK_SUBMIT_PACKAGES="--packages com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0" -e SPARK_SUBMIT_JARS="--jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar" -e SPARK_SUBMIT_PYFILES="--py-files /root/lib/jpmml.py" fluxcapacitor/jupyterhub
 ```
 
 ## Verify Successful Start through Logs
