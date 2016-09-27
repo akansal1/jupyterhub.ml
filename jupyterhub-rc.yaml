@@ -21,6 +21,8 @@ spec:
         - name: GET_HOSTS_FROM
           value: env
         - name: SPARK_MASTER
-          value: spark://$(SPARK_MASTER_2_0_1_SERVICE_HOST):$(SPARK_MASTER_2_0_1_SERVICE_PORT_SPARK_SUBMIT)
+          value: "spark://$(SPARK_MASTER_2_0_1_SERVICE_HOST):$(SPARK_MASTER_2_0_1_SERVICE_PORT_SPARK_SUBMIT)"
+        - name: SPARK_SUBMIT_ARGS
+          value: "--packages com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py"
         ports:
         - containerPort: 8754
