@@ -19,6 +19,6 @@ for lib in glob.glob(os.path.join(spark_home, 'python/lib/py4j-*-src.zip')):
 #          pyspark-shell <-- DON'T FORGET THIS!!
 # PYSPARK_SUBMIT_ARGS=" --master $SPARK_MASTER_HOST:$SPARK_MASTER_PORT pyspark-shell"
 
-os.environ['PYSPARK_SUBMIT_ARGS']='--master spark://spark.datasticks.com:7077 --packages com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0,databricks:tensorframes:0.2.3-s_2.10 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py pyspark-shell'
+os.environ['PYSPARK_SUBMIT_ARGS']='--master spark://%s:%s --packages %s --jars %s --py-files $s pyspark-shell' % (os.getenv(SPARK_MASTER_HOST), os.getenv(SPARK_MASTER_PORT), os.getenv(SPARK_SUBMIT_PACKAGES), os.getenv(SPARK_SUBMIT_JARS), os.getenv(SPARK_SUBMIT_PYFILES))
 
 execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))
