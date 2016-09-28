@@ -1,18 +1,3 @@
 #!/bin/bash
 
-source activate py2
-pip2 install jupyterhub-dummyauthenticator
-
-source activate py3
-pip install jupyterhub-dummyauthenticator 
-
-# Create Kernels
-ipython kernel install --name 'pyspark-py2'
-ipython kernel install --name 'pyspark-py3'
-cp -R /root/kernels/ /usr/local/share/jupyter/
-
-# Create Profiles
-cp -R /root/profiles/ ~/.ipython/
-
-# Starts on Port 8764
 jupyterhub --config=jupyterhub_config.py
