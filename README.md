@@ -2,7 +2,7 @@
 ## Prequisites
 
 ## Start Docker Container
-When using a running Spark cluster, set `SPARK_MASTER="spark://sandbox.pipeline.io:7077"`
+Note: For live Spark Cluster, use `SPARK_MASTER="spark://<spark-master-host>:<spark-master-port>"`
 ```
 sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER="local[*]" -e SPARK_SUBMIT_ARGS="--packages com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py" fluxcapacitor/jupyterhub
 ```
