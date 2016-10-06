@@ -68,7 +68,6 @@ COPY run run
 COPY jupyterhub_config.py jupyterhub_config.py
 COPY notebooks/ notebooks/ 
 COPY lib/ lib/
-COPY kernels/ /usr/local/share/jupyter/kernels/
 COPY profiles/ /root/.ipython/ 
 
 EXPOSE 8754
