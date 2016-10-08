@@ -69,6 +69,7 @@ COPY jupyterhub_config.py jupyterhub_config.py
 COPY notebooks/ notebooks/ 
 COPY lib/ lib/
 COPY profiles/ /root/.ipython/ 
+COPY datasets/ datasets/
 
 EXPOSE 8754
 
