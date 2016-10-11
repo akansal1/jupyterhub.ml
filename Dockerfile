@@ -53,6 +53,29 @@ RUN \
   && conda install --yes -c conda-forge notebook=4.2.3 \
   && conda install --yes -c conda-forge findspark=1.0.0 
 
+#RUN \
+#  conda install -c r r-essentials
+RUN \
+  echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list \
+  && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 \
+  && gpg -a --export E084DAB9 | apt-key add - \
+  && apt-get update \
+  && apt-get install -y r-base \
+  && apt-get install -y r-base-dev 
+
+# TODO:  Replace with conda version of SparkR:
+#          https://www.continuum.io/blog/developer-blog/anaconda-r-users-sparkr-and-rbokeh
+RUN \
+# libcurl (required to install.packages('devtools') in R)
+  apt-get install -y libcurl4-openssl-dev \
+  && apt-get install -y libzmq3 libzmq3-dev \
+  && apt-get install -y zip \
+  && ln -s /bin/tar /bin/gtar \
+  && R -e "install.packages(c('pbdZMQ','rzmq','repr', 'devtools'), type = 'source', repos = c('http://cran.us.r-project.org', 'http://irkernel.github.io/'))" \
+  && R -e "devtools::install_github('IRkernel/IRdisplay')" \
+  && R -e "devtools::install_github('IRkernel/IRkernel')" \
+  && R -e "IRkernel::installspec(user = FALSE)"
+
 RUN \
   pip install jupyterhub-dummyauthenticator
 
