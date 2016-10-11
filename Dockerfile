@@ -80,16 +80,16 @@ RUN \
   pip install jupyterhub-dummyauthenticator
 
 # Add guest accounts
+#RUN \
+#  adduser guest1 --gecos GECOS --disabled-password \
+#  && adduser guest2 --gecos GECOS --disabled-password 
+
 RUN \
-  adduser guest1 --gecos GECOS --disabled-password \
-  && adduser guest2 --gecos GECOS --disabled-password 
-
-COPY notebooks/ /home/guest1/notebooks/
-COPY notebooks/ /home/guest2/notebooks/
-
+  git clone $GITHUB_REPO \
+  && ln -s $SOURCE_ROOT_PATH notebooks
+   
 COPY run run
-COPY jupyterhub_config.py jupyterhub_config.py
-COPY notebooks/ notebooks/ 
+COPY config/ config/ 
 COPY lib/ lib/
 COPY profiles/ /root/.ipython/ 
 COPY datasets/ datasets/
