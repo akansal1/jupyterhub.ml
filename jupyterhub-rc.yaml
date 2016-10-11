@@ -24,5 +24,9 @@ spec:
           value: "spark://$(MASTER_SPARK_2_0_1_SERVICE_HOST):$(MASTER_SPARK_2_0_1_SERVICE_PORT_SPARK_SUBMIT)"
         - name: SPARK_SUBMIT_ARGS
           value: "--packages com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-aws:2.7.1 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py"
+        - name: GITHUB_REPO 
+          value: "http://github.com/fluxcapacitor/source.ml"
+        - name: SOURCE_ROOT_PATH 
+          value: "source.ml/jupyter"
         ports:
         - containerPort: 8754
