@@ -4,4 +4,4 @@ cd $SOURCE_ROOT_PATH
 git pull 
 
 cd ~
-jupyterhub --config=jupyterhub_config.py
+jupyterhub --config=config/jupyterhub_config.py
