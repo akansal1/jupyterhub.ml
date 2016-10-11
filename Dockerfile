@@ -86,7 +86,6 @@ RUN \
 
 COPY run run
 COPY config/ config/ 
-COPY lib/ lib/
 COPY profiles/ /root/.ipython/ 
 
 EXPOSE 8754

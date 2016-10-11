@@ -5,7 +5,8 @@ cd $SOURCE_ROOT_PATH
 git pull
 
 cd ~
-ln -s $SOURCE_ROOT_PATH notebooks
+ln -s $SOURCE_ROOT_PATH/notebooks notebooks
+ln -s $SOURCE_ROOT_PATH/lib lib
 
 cd ~
 jupyterhub --config=config/jupyterhub_config.py
