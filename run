@@ -1,7 +1,11 @@
 #!/bin/bash
 
-cd $SOURCE_ROOT_PATH 
-git pull 
+git clone $GITHUB_REPO
+cd $SOURCE_ROOT_PATH
+git pull
+
+cd ~
+ln -s $SOURCE_ROOT_PATH notebooks
 
 cd ~
 jupyterhub --config=config/jupyterhub_config.py

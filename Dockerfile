@@ -84,15 +84,10 @@ RUN \
 #  adduser guest1 --gecos GECOS --disabled-password \
 #  && adduser guest2 --gecos GECOS --disabled-password 
 
-RUN \
-  git clone $GITHUB_REPO \
-  && ln -s $SOURCE_ROOT_PATH notebooks
-   
 COPY run run
 COPY config/ config/ 
 COPY lib/ lib/
 COPY profiles/ /root/.ipython/ 
-COPY datasets/ datasets/
 
 EXPOSE 8754
 
