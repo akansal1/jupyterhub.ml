@@ -1,13 +1,15 @@
 #!/bin/bash
 
-# TODO:  Replace this with gitRepo Volume/VolumeClaim
-git clone $GITHUB_REPO
-#cd $SOURCE_ROOT_PATH
-#git pull
+cd ~
+git clone -b $GITHUB_CLONE_BRANCH $GITHUB_ORG_URL/$GITHUB_REPO_NAME.git
+
+cd $GITHUB_REPO_NAME
+git checkout -b $GITHUB_CHECKOUT_BRANCH
+git reset --hard $GITHUB_RESET_REVISION
 
 cd ~
-ln -s $SOURCE_ROOT_PATH/notebooks notebooks
-ln -s $SOURCE_ROOT_PATH/lib lib
+ln -s $GITHUB_REPO_NAME/notebooks notebooks
+ln -s $GITHUB_REPO_NAME/lib lib
 
 cd ~
 jupyterhub --config=config/jupyterhub_config.py
