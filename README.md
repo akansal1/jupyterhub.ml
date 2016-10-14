@@ -4,7 +4,7 @@
 ## Start Docker Container
 Note: For live Spark Cluster, use `SPARK_MASTER="spark://<spark-master-host>:<spark-master-port>"`
 ```
-sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER="local[*]" -e SPARK_SUBMIT_ARGS="--packages com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-aws:2.7.1 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py" -e GITHUB_REPO="http://github.com/fluxcapacitor/demos.ml" -e SOURCE_ROOT_PATH="demos.ml/jupyter" fluxcapacitor/jupyterhub
+sudo docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER="local[*]" -e SPARK_SUBMIT_ARGS="--packages com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-aws:2.7.1 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py" -e GITHUB_REPO="http://github.com/fluxcapacitor/demos.ml" -e GITHUB_REVISION="HEAD" -e GITHUB_ORIGINAL_BRANCH="master" -e GITHUB_DEV_BRANCH="master" -e MOUNT_PATH="demos.ml/" fluxcapacitor/jupyterhub
 ```
 
 ## Verify Successful Start through Logs
