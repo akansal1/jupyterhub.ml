@@ -15,10 +15,6 @@ RUN apt-get update && \
     apt-get clean 
 #    rm -rf /var/lib/apt/lists/*
 
-# Overcomes current limitation with conda matplotlib (1.5.1)
-RUN \
-  apt-get install -y python-qt4
-
 # Install JupyterHub dependencies
 RUN npm install -g configurable-http-proxy && rm -rf ~/.npm
 
@@ -34,12 +30,8 @@ RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.1.11-Linux-x86_64.s
 
 ENV PATH=/opt/conda/bin:$PATH
 
-# Install non-secure dummyauthenticator for jupyterhub (dev purposes only)
 RUN \
-  pip install jupyterhub-dummyauthenticator
-
-RUN \
-  conda install --yes scikit-learn numpy scipy ipython jupyter matplotlib pandas 
+  conda install --yes scikit-learn numpy scipy ipython jupyter matplotlib pandas
 
 RUN \
   pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp35-cp35m-linux_x86_64.whl
@@ -47,26 +39,21 @@ RUN \
 RUN \
   conda install --yes -c conda-forge py4j
 
+# Overcomes current limitation with conda matplotlib (1.5.1)
 RUN \
-  conda install --yes -c conda-forge jupyterhub=0.6.1 \
-  && conda install --yes -c conda-forge ipykernel=4.5.0 \
-  && conda install --yes -c conda-forge notebook=4.2.3 \
-  && conda install --yes -c conda-forge findspark=1.0.0 
+  apt-get install -y python-qt4
 
-#RUN \
-#  conda install -c r r-essentials
 RUN \
   echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list \
   && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 \
   && gpg -a --export E084DAB9 | apt-key add - \
   && apt-get update \
   && apt-get install -y r-base \
-  && apt-get install -y r-base-dev 
+  && apt-get install -y r-base-dev
 
 # TODO:  Replace with conda version of SparkR:
 #          https://www.continuum.io/blog/developer-blog/anaconda-r-users-sparkr-and-rbokeh
 RUN \
-# libcurl (required to install.packages('devtools') in R)
   apt-get install -y libcurl4-openssl-dev \
   && apt-get install -y libzmq3 libzmq3-dev \
   && apt-get install -y zip \
@@ -77,12 +64,14 @@ RUN \
   && R -e "IRkernel::installspec(user = FALSE)"
 
 RUN \
-  pip install jupyterhub-dummyauthenticator
+  conda install --yes -c conda-forge jupyterhub=0.6.1 \
+  && conda install --yes -c conda-forge ipykernel=4.5.0 \
+  && conda install --yes -c conda-forge notebook=4.2.3 \
+  && conda install --yes -c conda-forge findspark=1.0.0 
 
-# Add guest accounts
-#RUN \
-#  adduser guest1 --gecos GECOS --disabled-password \
-#  && adduser guest2 --gecos GECOS --disabled-password 
+# Install non-secure dummyauthenticator for jupyterhub (dev purposes only)
+RUN \
+  pip install jupyterhub-dummyauthenticator
 
 COPY run run
 COPY config/ config/ 

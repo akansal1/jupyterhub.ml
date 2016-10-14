@@ -1,8 +1,9 @@
 #!/bin/bash
 
+# TODO:  Replace this with gitRepo Volume/VolumeClaim
 git clone $GITHUB_REPO
-cd $SOURCE_ROOT_PATH
-git pull
+#cd $SOURCE_ROOT_PATH
+#git pull
 
 cd ~
 ln -s $SOURCE_ROOT_PATH/notebooks notebooks
