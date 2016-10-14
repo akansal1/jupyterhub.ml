@@ -24,15 +24,15 @@ spec:
           value: "spark://$(SPARK_MASTER_2_0_1_SERVICE_HOST):$(SPARK_MASTER_2_0_1_SERVICE_PORT_SPARK_SUBMIT)"
         - name: SPARK_SUBMIT_ARGS
           value: "--conf spark.cores.max=1 --conf spark.executor.memory=1g --packages com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-aws:2.7.1 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py"
-        - name: GITHUB_REPO 
-          value: "http://github.com/fluxcapacitor/demos.ml"
-        - name: GITHUB_ORIGINAL_BRANCH
+        - name: GITHUB_ORG_URL 
+          value: "https://github.com/fluxcapacitor"
+        - name: GITHUB_CLONE_BRANCH
           value: "master"
-        - name: GITHUB_DEV_BRANCH
+        - name: GITHUB_CHECKOUT_BRANCH
           value: "master"
-        - name: GITHUB_REVISION
+        - name: GITHUB_RESET_REVISION
           value: "134e7dd52f54b63002a7fc63c1c5d272dd46a635"
-        - name: MOUNT_PATH 
-          value: "demos.ml/"
+        - name: GITHUB_REPO_NAME 
+          value: "demos.ml"
         ports:
         - containerPort: 8754
