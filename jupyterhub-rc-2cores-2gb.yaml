@@ -27,7 +27,7 @@ spec:
         - name: GITHUB_ORG_URL 
           value: "https://github.com/fluxcapacitor"
         - name: GITHUB_REPO_NAME 
-          value: "demos.ml"
+          value: "source.ml"
         - name: GITHUB_CLONE_BRANCH
           value: "master"
         - name: GITHUB_CHECKOUT_BRANCH
