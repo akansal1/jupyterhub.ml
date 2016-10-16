@@ -8,8 +8,8 @@ git checkout -b $GITHUB_CHECKOUT_BRANCH
 git reset --hard $GITHUB_RESET_REVISION
 
 cd ~
-ln -s $GITHUB_REPO_NAME/jupyter/notebooks notebooks
-ln -s $GITHUB_REPO_NAME/jupyter/lib lib
+ln -s $GITHUB_REPO_NAME/demos.ml/jupyter/notebooks notebooks
+ln -s $GITHUB_REPO_NAME/demos.ml/jupyter/lib lib
 
 cd ~
 jupyterhub --config=config/jupyterhub_config.py
