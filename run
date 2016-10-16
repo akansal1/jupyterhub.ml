@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ~
-git clone -b $GITHUB_CLONE_BRANCH $GITHUB_ORG_URL/$GITHUB_REPO_NAME.git
+git clone --recursive -b $GITHUB_CLONE_BRANCH $GITHUB_ORG_URL/$GITHUB_REPO_NAME.git
 
 cd $GITHUB_REPO_NAME
 git checkout -b $GITHUB_CHECKOUT_BRANCH
