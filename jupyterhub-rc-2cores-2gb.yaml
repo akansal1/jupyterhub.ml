@@ -33,6 +33,6 @@ spec:
         - name: GITHUB_CHECKOUT_BRANCH
           value: "master"
         - name: GITHUB_RESET_REVISION
-          value: "134e7dd52f54b63002a7fc63c1c5d272dd46a635"
+          value: "HEAD"
         ports:
         - containerPort: 8754
