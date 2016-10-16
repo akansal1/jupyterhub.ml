@@ -5,7 +5,7 @@
 * Note: For live Spark Cluster, use `SPARK_MASTER="spark://<spark-master-host>:<spark-master-port>"`
 * See `run` script for more details on the `-e` ENV vars passed here
 ```
-docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER="local[*]" -e SPARK_SUBMIT_ARGS="--conf spark.cores.max=1 --conf spark.executor.memory=1g --packages com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-aws:2.7.1 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py" -e GITHUB_ORG_URL="https://github.com/fluxcapacitor" -e GITHUB_REPO_NAME="source.ml" -e GITHUB_RESET_REVISION="HEAD" -e GITHUB_CLONE_BRANCH="master" -e GITHUB_CHECKOUT_BRANCH="master" -p 8754:8754 fluxcapacitor/jupyterhub
+docker run -itd --name=jupyterhub --net=host -e SPARK_MASTER="local[*]" -e SPARK_SUBMIT_ARGS="--conf spark.cores.max=1 --conf spark.executor.memory=1g --packages com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-aws:2.7.1 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py" -e GITHUB_REPO_OWNER_URL="https://github.com/fluxcapacitor" -e GITHUB_REPO_NAME="source.ml" -e GITHUB_RESET_REVISION="HEAD" -e GITHUB_CLONE_BRANCH="master" -e GITHUB_CHECKOUT_BRANCH="master" -p 8754:8754 fluxcapacitor/jupyterhub
 ```
 
 ## Verify Successful Start through Logs
@@ -41,6 +41,3 @@ root         1     0  0 16:29 ?        00:00:00 /usr/bin/python3 /usr/local/bin/
 ```
 docker build -t fluxcapacitor/jupyterhub .
 ```
-
-
-
