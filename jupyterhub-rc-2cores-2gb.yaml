@@ -14,7 +14,7 @@ spec:
         name: jupyterhub-master-2cores-2gb
     spec:
       containers:
-      - name: jupyterhub-master-2cores-2gb
+      - name: jupyterhub-master
         image: docker.io/fluxcapacitor/jupyterhub
         imagePullPolicy: "Always"
         env:
@@ -23,7 +23,7 @@ spec:
         - name: SPARK_MASTER
           value: "spark://$(SPARK_MASTER_2_0_1_SERVICE_HOST):$(SPARK_MASTER_2_0_1_SERVICE_PORT_SPARK_SUBMIT)"
         - name: SPARK_SUBMIT_ARGS
-          value: "--conf spark.cores.max=2 --conf spark.executor.memory=2g --packages com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-aws:2.7.1 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py"
+          value: "--conf spark.cores.max=2 --conf spark.executor.memory=2g --packages com.amazonaws:aws-java-sdk:1.7.4,org.apache.hadoop:hadoop-aws:2.7.1,org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.1 --jars /root/lib/jpmml-sparkml-package-1.0-SNAPSHOT.jar --py-files /root/lib/jpmml.py"
         - name: GITHUB_REPO_OWNER_URL 
           value: "https://github.com/fluxcapacitor"
         - name: GITHUB_REPO_NAME 
