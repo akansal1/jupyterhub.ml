@@ -75,8 +75,6 @@ RUN \
 
 ENV KUBERNETES_VERSION=1.4.1
 
-WORKDIR /root
-
 RUN \
   wget https://storage.googleapis.com/kubernetes-release/release/v$KUBERNETES_VERSION/bin/linux/amd64/kubectl
 
