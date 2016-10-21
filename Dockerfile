@@ -73,6 +73,19 @@ RUN \
 RUN \
   pip install jupyterhub-dummyauthenticator
 
+ENV KUBERNETES_VERSION=1.4.1
+
+WORKDIR /root
+
+RUN \
+  wget https://storage.googleapis.com/kubernetes-release/release/v$KUBERNETES_VERSION/bin/linux/amd64/kubectl
+
+RUN \
+  sudo chmod a+x kubectl \
+  && sudo mv kubectl /usr/local/bin/kubectl
+
+COPY .kube/ .kube/
+
 COPY run run
 COPY config/ config/ 
 COPY profiles/ /root/.ipython/ 
