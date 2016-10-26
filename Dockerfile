@@ -90,7 +90,4 @@ COPY profiles/ /root/.ipython/
 
 EXPOSE 8754
 
-ENV \
-  SPARK_MASTER=spark://spark-master-2-0-1:7077
-
 CMD ["supervise", "."]
