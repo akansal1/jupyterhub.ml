@@ -82,6 +82,9 @@ RUN \
   sudo chmod a+x kubectl \
   && sudo mv kubectl /usr/local/bin/kubectl
 
+RUN \
+  pip install jupyterhub-simplespawner
+
 COPY .kube/ .kube/
 
 COPY run run
