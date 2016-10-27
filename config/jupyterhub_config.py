@@ -1,3 +1,5 @@
+import os
+
 # Configuration file for jupyterhub.
 
 #------------------------------------------------------------------------------
@@ -72,8 +74,11 @@ c.JupyterHub.answer_yes = True
 #   where `handler` is the calling web.RequestHandler,
 #   and `data` is the POST form data from the login page.
 #c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
-
 c.JupyterHub.authenticator_class = 'dummyauthenticator.DummyAuthenticator'
+#c.JupyterHub.authenticator_class = 'oauthenticator.GitHubOAuthenticator'
+#c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
+#c.GitHubOAuthenticator.client_id = os.environ['GITHUB_CLIENT_ID']
+#c.GitHubOAuthenticator.client_secret = os.environ['GITHUB_CLIENT_SECRET']
 
 # The base URL of the entire application
 c.JupyterHub.base_url = '/'
@@ -99,12 +104,14 @@ c.JupyterHub.cleanup_proxy = True
 # If both this and cleanup_proxy are False, sending SIGINT to the Hub will only
 # shutdown the Hub, leaving everything else running.
 #
+# If both this and cleanup_proxy are False, sending SIGINT to the Hub will only
+# shutdown the Hub, leaving everything else running.
+#
 # The Hub should be able to resume from database state.
 c.JupyterHub.cleanup_servers = True
 
 # The config file to load
 # c.JupyterHub.config_file = '/root/config/jupyter/jupyterhub_config.py'
-
 # Confirm that JupyterHub should be run without SSL. This is **NOT RECOMMENDED**
 # unless SSL termination is being handled by another layer.
 c.JupyterHub.confirm_no_ssl = True
@@ -127,7 +134,7 @@ c.JupyterHub.confirm_no_ssl = True
 # sqlalchemy.create_engine for details.
 # c.JupyterHub.db_kwargs = {}
 # url for the database. e.g. `sqlite:///jupyterhub.sqlite`
-# c.JupyterHub.db_url = 'sqlite:////root/pipeline/work/jupyterhub/jupyterhub.sqlite'
+#c.JupyterHub.db_url = 'sqlite:////root/jupyterhub.sqlite'
 
 # log all database transactions. This has A LOT of output
 # c.JupyterHub.debug_db = False
@@ -139,13 +146,13 @@ c.JupyterHub.confirm_no_ssl = True
 #
 # This will *only* include the logs of the Hub itself, not the logs of the proxy
 # or any single-user servers.
-#c.JupyterHub.extra_log_file = '/root/pipeline/logs/jupyterhub/jupyterhub.log'
+#c.JupyterHub.extra_log_file = '/root/jupyterhub.log'
 
 # Extra log handlers to set on JupyterHub logger
 # c.JupyterHub.extra_log_handlers = []
 
 # Generate default config file
-# c.JupyterHub.generate_config = False
+# #c.JupyterHub.generate_config = False
 
 # The ip for this process
 c.JupyterHub.hub_ip = '0.0.0.0'
@@ -157,11 +164,10 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 # c.JupyterHub.hub_prefix = '/hub/'
 
 # The public facing ip of the whole application (the proxy)
-# c.JupyterHub.ip = ''
+c.JupyterHub.ip = '0.0.0.0'
 
 # Supply extra arguments that will be passed to Jinja environment.
 # c.JupyterHub.jinja_environment_options = {}
-
 # Interval (in seconds) at which to update last-activity timestamps.
 # c.JupyterHub.last_activity_interval = 300
 
@@ -175,7 +181,7 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 c.JupyterHub.port = 8754
 
 # The ip for the proxy API handlers
-# c.JupyterHub.proxy_api_ip = '0.0.0.0'
+c.JupyterHub.proxy_api_ip = '0.0.0.0'
 
 # The port for the proxy API handlers
 # c.JupyterHub.proxy_api_port = 0
@@ -199,8 +205,10 @@ c.JupyterHub.port = 8754
 # The class to use for spawning single-user servers.
 #
 # Should be a subclass of Spawner.
-c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+#c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
 #c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
+c.JupyterHub.spawner_class = 'simplespawner.SimpleLocalProcessSpawner'
+c.SimpleLocalProcessSpawner.home_path_template = '/root/'
 
 # Spawn user containers from this image
 #c.DockerSpawner.container_image = 'jupyter/pyspark-notebook'
@@ -267,7 +275,7 @@ c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
 # c.Spawner.cmd = ['jupyterhub-singleuser']
 
 # Enable debug-logging of the single-user server
-# c.Spawner.debug = False
+c.Spawner.debug = True
 
 # The default URL for the single-user server.
 #
@@ -281,10 +289,11 @@ c.Spawner.default_url = ''
 #
 # This prevents any config in users' $HOME directories from having an effect on
 # their server.
-# c.Spawner.disable_user_config = False
+c.Spawner.disable_user_config = True
 
 # Whitelist of environment variables for the subprocess to inherit
-c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'SPARK_HOME', 'PYSPARK_PYTHON', 'SPARK_MASTER', 'PYSPARK_SUBMIT_ARGS', 'SPARK_SUBMIT_ARGS']
+c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'SPARK
+_HOME', 'PYSPARK_PYTHON', 'SPARK_MASTER', 'PYSPARK_SUBMIT_ARGS', 'SPARK_SUBMIT_ARGS']
 
 # Environment variables to load for the Spawner.
 #
@@ -301,7 +310,7 @@ c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', '
 # c.Spawner.http_timeout = 30
 
 # The IP address (or hostname) the single-user server should listen on
-# c.Spawner.ip = '127.0.0.1'
+c.Spawner.ip = '0.0.0.0'
 
 # The notebook directory for the single-user server
 #
@@ -313,9 +322,6 @@ c.Spawner.notebook_dir = 'notebooks'
 # surrounding `<form>` element and the submit button are already provided.
 #
 # For example:
-#
-#     Set your key:
-#     <input name="key" val="default_key"></input>
 #     <br>
 #     Choose a letter:
 #     <select name="letter" multiple="true">
@@ -365,7 +371,7 @@ c.Spawner.notebook_dir = 'notebooks'
 # set of usernames of admin users
 #
 # If unspecified, only the user that launches the server will be admin.
-c.Authenticator.admin_users = set("root")
+#c.Authenticator.admin_users = {"root"}
 
 # Dictionary mapping authenticator usernames to JupyterHub users.
 #
@@ -383,7 +389,7 @@ c.Authenticator.admin_users = set("root")
 #
 # Use this to restrict which users can login. If empty, allow any user to
 # attempt login.
-# c.Authenticator.whitelist = set()
+#c.Authenticator.whitelist = set("")
 
 #------------------------------------------------------------------------------
 # LocalAuthenticator configuration
@@ -412,11 +418,11 @@ c.Authenticator.admin_users = set("root")
 # adduser -q --gecos "" --home /customhome/river --disabled-password river
 #
 # when the user 'river' is created.
-# c.LocalAuthenticator.add_user_cmd = []
+#c.LocalAuthenticator.add_user_cmd = []
 
 # If a user is added that doesn't exist on the system, should I try to create
 # the system user?
-#c.LocalAuthenticator.create_system_users = True
+c.LocalAuthenticator.create_system_users = False
 
 # Automatically whitelist anyone in this group.
 #c.LocalAuthenticator.group_whitelist = set("root")
@@ -437,8 +443,7 @@ c.Authenticator.admin_users = set("root")
 #
 # It can be disabled with::
 #
-#     c.PAMAuthenticator.open_sessions = False
-# c.PAMAuthenticator.open_sessions = True
+# c.PAMAuthenticator.open_sessions = False
 
 # The PAM service to use for authentication.
-# c.PAMAuthenticator.service = 'login'
+# c.PAMAuthenticator.service = 'login'                     
