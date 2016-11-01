@@ -11,5 +11,8 @@ cd ~
 ln -s $GITHUB_REPO_NAME/demos.ml/jupyter/notebooks notebooks
 ln -s $GITHUB_REPO_NAME/demos.ml/jupyter/lib lib
 
+git config --global user.name  $GITHUB_USER 
+git config --global user.email $GITHUB_EMAIL
+
 cd ~
-jupyterhub --config=config/jupyterhub_config.py
+jupyterhub --config=config/jupyterhub_config.py --NotebookApp.server_extensions="['github_commit_push']"

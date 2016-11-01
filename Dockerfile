@@ -67,7 +67,9 @@ RUN \
   conda install --yes -c conda-forge jupyterhub=0.6.1 \
   && conda install --yes -c conda-forge ipykernel=4.5.0 \
   && conda install --yes -c conda-forge notebook=4.2.3 \
-  && conda install --yes -c conda-forge findspark=1.0.0 
+  && conda install --yes -c conda-forge findspark=1.0.0 \
+  && conda install --yes -c conda-forge jupyter_contrib_nbextensions \
+  && conda install --yes -c anaconda-nb-extensions anaconda-nb-extensions 
 
 # Install non-secure dummyauthenticator for jupyterhub (dev purposes only)
 RUN \
