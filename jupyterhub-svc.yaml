@@ -7,7 +7,7 @@ spec:
   ports:
     # the port that this service should serve on
   - name: http
-    port: 8754
+    port: 80 
     targetPort: 8754
   selector:
     name: jupyterhub-master
