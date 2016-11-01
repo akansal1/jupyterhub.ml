@@ -39,4 +39,5 @@ spec:
         - name: GITHUB_RESET_REVISION
           value: "HEAD"
         ports:
+        - containerPort: 6006
         - containerPort: 8754

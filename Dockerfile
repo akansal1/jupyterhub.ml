@@ -87,12 +87,15 @@ RUN \
 RUN \
   pip install jupyterhub-simplespawner
 
+RUN \
+  mkdir -p /root/tensorboard
+
 COPY .kube/ .kube/
 
 COPY run run
 COPY config/ config/ 
 COPY profiles/ /root/.ipython/ 
 
-EXPOSE 8754
+EXPOSE 6006 8754
 
 CMD ["supervise", "."]
