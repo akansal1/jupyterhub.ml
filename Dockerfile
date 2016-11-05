@@ -93,7 +93,9 @@ RUN \
 COPY .kube/ .kube/
 
 COPY run run
-COPY config/ config/ 
+COPY config/jupyterhub/ config/jupyterhub/
+COPY config/spark/ $SPARK_HOME/conf/
+
 COPY profiles/ /root/.ipython/ 
 
 EXPOSE 6006 8754
