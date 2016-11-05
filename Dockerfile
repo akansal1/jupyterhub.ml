@@ -94,7 +94,6 @@ COPY .kube/ .kube/
 
 COPY run run
 COPY config/jupyterhub/ config/jupyterhub/
-COPY config/spark/ $SPARK_HOME/conf/
 
 COPY profiles/ /root/.ipython/ 
 
