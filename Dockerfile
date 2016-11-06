@@ -31,7 +31,7 @@ RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.1.11-Linux-x86_64.s
 ENV PATH=/opt/conda/bin:$PATH
 
 RUN \
-  conda install --yes scikit-learn numpy scipy ipython jupyter matplotlib pandas
+  conda install --yes scikit-learn numpy scipy ipython jupyter matplotlib pandas seaborn
 
 RUN \
   pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp35-cp35m-linux_x86_64.whl
