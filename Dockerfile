@@ -95,6 +95,9 @@ COPY .kube/ .kube/
 COPY run run
 COPY config/jupyterhub/ config/jupyterhub/
 
+COPY lib/ lib/
+COPY notebooks/ notebooks/
+
 COPY profiles/ /root/.ipython/ 
 
 EXPOSE 6006 8754
