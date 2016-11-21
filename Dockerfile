@@ -28,13 +28,15 @@ RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-4.1.11-Linux-x86_64.s
     /opt/conda/bin/pip install --upgrade pip && \
     rm /tmp/miniconda.sh
 
-ENV PATH=/opt/conda/bin:$PATH
+ENV \
+  PATH=/opt/conda/bin:$PATH \
+  TENSORFLOW_VERSION=0.11.0
 
 RUN \
   conda install --yes scikit-learn numpy scipy ipython jupyter matplotlib pandas seaborn
 
 RUN \
-  pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp35-cp35m-linux_x86_64.whl
+  pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-$TENSORFLOW_VERSION-cp35-cp35m-linux_x86_64.whl
 
 RUN \
   conda install --yes -c conda-forge py4j
