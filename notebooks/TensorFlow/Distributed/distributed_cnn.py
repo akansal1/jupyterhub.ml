@@ -8,18 +8,22 @@ import tarfile
 from six.moves.urllib.request import urlretrieve
 from scipy import ndimage
 
+# TODO:  conda install -y pillow
 
-outdir = '/tmp/pipeline/datasets/notmist/'
+outdir = '/root/datasets/notmnist/'
 
 def maybe_download(filename, url, force=False):
   """Download a file if not present."""
-  if force or not os.path.exists(outdir + filename):
-    filename, _ = urlretrieve(url + filename, outdir + filename)
-    print('\nDownload complete for {}'.format(filename))
+  fullPathname = outdir + filename
+  if force:
+    if not os.path.exists(outdir):
+      os.makedirs(outdir)
+    fullPathname, _ = urlretrieve(url + filename, fullPathname)
+    print('\nDownload complete for {}'.format(fullPathname))
   else:
-    print('File {} already present.'.format(filename))
-  print(filename)
-  return outdir + filename
+    print('File {} already present.'.format(fullPathname))
+  print(fullPathname)
+  return fullPathname
 
 def maybe_extract(filename, force=False):
   root = os.path.splitext(os.path.splitext(filename)[0])[0]  # remove .tar.gz
@@ -43,7 +47,7 @@ def maybe_extract(filename, force=False):
 url = 'http://yaroslavvb.com/upload/notMNIST/'
 
 # Download two datasets
-train_zip_path = maybe_download('notMNIST_small.tar.gz', url)
+train_zip_path = maybe_download('notMNIST_small.tar.gz', url, force=True)
 
 # Extract datasets
 train_folders = maybe_extract(train_zip_path)
@@ -169,8 +173,8 @@ train_dataset, train_labels = shuffle_data_with_labels(train_dataset, train_labe
 
 CLUSTER_SPEC= """
 {
-    'ps' : ['tensorflow0.pipeline.io:8888', 'tensorflow1.pipeline.io:8888'],
-    'worker' : ['tensorflow2.pipeline.io:8888','tensorflow3.pipeline.io:8888'],
+    'ps' : ['clustered-tensorflow-ps0:2222', 'clustered-tensorflow-ps1:2222'],
+    'worker' : ['clustered-tensorflow-worker0:2222','clustered-tensorflow-worker1:2222'],
 }
 """
 import ast
@@ -192,7 +196,7 @@ with graph.as_default():
             version = tf.Print(["active"], ["version"], message="worker is ")
             print_versions.append(version)
 
-target = "grpc://tensorflow0.pipeline.io:8888"
+target = "grpc://clustered-tensorflow-worker0:8888"
 
 with tf.Session(target, graph=graph, config=sess_config) as session:
     print(session.run(print_versions))
@@ -214,7 +218,6 @@ def variable_summaries(var, name):
       tf.scalar_summary('min/' + name, tf.reduce_min(var))
       tf.histogram_summary(name, var)
 
-
 def weight_variable(shape, name):
     return tf.Variable(tf.truncated_normal(
       shape, stddev=0.1), name=name)
@@ -230,7 +233,6 @@ def fc(data, W, b):
     shape = data.get_shape().as_list()
     reshape = tf.reshape(data, [-1, shape[1] * shape[2] * shape[3]])
     return tf.nn.relu(tf.nn.xw_plus_b(reshape, W, b), name="ReLu")
-
 
 def model(data):
     with tf.name_scope("Layer1"):
@@ -311,13 +313,13 @@ with graph.as_default():
 
 sv = tf.train.Supervisor(is_chief=True,
                          graph=graph,
-                         logdir="/tmp/cnn_distributed",
+                         logdir="/root/logs/cnn_distributed",
                          init_op=init,
                          global_step=global_step)
 # Directory to export TensorBoard summary statistics, graph data, etc.
-TB_DIR = '/tmp/tensorboard/tf_cnn'
+TB_DIR = '/root/logs/tensorboard/tf_cnn'
 
-num_steps = 2000
+num_steps = 1000
 batch_size = 256
 
 with sv.prepare_or_wait_for_session(target, config=sess_config) as session:
@@ -343,5 +345,3 @@ with sv.prepare_or_wait_for_session(target, config=sess_config) as session:
     print('Test accuracy: {}'.format(test_accuracy))
 
     writer.close()
-
-
