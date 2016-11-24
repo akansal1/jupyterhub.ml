@@ -92,13 +92,19 @@ RUN \
 RUN \
   mkdir -p /root/tensorboard
 
+RUN \
+  git clone http://github.com/fluxcapacitor/jupyterhub.ml
+
 COPY .kube/ .kube/
 
 COPY run run
 COPY config/jupyterhub/ config/jupyterhub/
 
-COPY lib/ lib/
-COPY notebooks/ notebooks/
+RUN \
+  ln -s jupyterhub.ml/notebooks/ notebooks \
+  && ln -s jupyterhub.ml/lib/ lib
+#COPY lib/ lib/
+#COPY notebooks/ notebooks/
 
 COPY profiles/ /root/.ipython/ 
 
